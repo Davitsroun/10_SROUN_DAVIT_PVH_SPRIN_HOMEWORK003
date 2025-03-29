@@ -1,8 +1,6 @@
 package org.example._10_sroun_davit_pvh_spring_homework003.exception;
-import jakarta.validation.Constraint;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.ParameterNameProvider;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.net.URI;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +18,6 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobleException {
-
-
 
     @ExceptionHandler(NotFoundException.class)
     public ProblemDetail handlerNotFoundException(NotFoundException e){
@@ -71,15 +66,12 @@ public class GlobleException {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ProblemDetail handleNullSqlExcection(DataIntegrityViolationException ex){
-
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Daatabse error");
         problemDetail.setTitle("Invalid foreing key constraint ");
         problemDetail.setType(URI.create("https://example.com/errors/validation-error"));
-           String errors= ex.getRootCause() != null ? ex.getRootCause().getMessage() : ex.getMessage();
-
+        String errors= ex.getRootCause() != null ? ex.getRootCause().getMessage() : ex.getMessage();
         problemDetail.setProperty("errors", errors);
         problemDetail.setProperty("timestamp", LocalDateTime.now());
-
         return  problemDetail;
     }
 

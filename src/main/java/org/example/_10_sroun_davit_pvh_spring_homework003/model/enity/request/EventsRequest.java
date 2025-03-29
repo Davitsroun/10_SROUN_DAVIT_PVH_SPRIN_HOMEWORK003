@@ -1,5 +1,7 @@
 package org.example._10_sroun_davit_pvh_spring_homework003.model.enity.request;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ public class EventsRequest {
 
     @NotNull(message = "localDateTime cannot be null")
     private LocalDateTime localDateTime ;
-    @NotNull(message = "Venues cannot be null")
+
     private Integer venues;
     private List<Integer> attendees;
 }
